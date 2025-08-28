@@ -1,0 +1,5 @@
+dependencies {
+    implementation project(':model')
+    testImplementation 'org.springframework.boot:spring-boot-starter-test' // JUnit + Mockito
+    testImplementation 'io.projectreactor:reactor-test'
+}
