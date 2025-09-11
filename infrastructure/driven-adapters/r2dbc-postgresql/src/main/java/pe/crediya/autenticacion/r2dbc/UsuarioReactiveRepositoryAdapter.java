@@ -10,6 +10,8 @@ import org.springframework.stereotype.Repository;
 import reactor.core.publisher.Flux;
 import reactor.core.publisher.Mono;
 
+import java.util.List;
+
 @Repository
 public class UsuarioReactiveRepositoryAdapter extends ReactiveAdapterOperations<
         Usuario,
@@ -37,6 +39,11 @@ public class UsuarioReactiveRepositoryAdapter extends ReactiveAdapterOperations<
     }
 
     @Override
+    public Flux<Usuario> findByExample(Usuario entity) {
+        return super.findByExample(entity);
+    }
+
+    @Override
     public Mono<Usuario> findByEmail(String email) {
         return repository.findByEmail(email).map(
                 e -> mapper.map(e, Usuario.class));
@@ -57,5 +64,11 @@ public class UsuarioReactiveRepositoryAdapter extends ReactiveAdapterOperations<
         return repository.deleteById(idUsuario)
                 .onErrorMap(R2dbcErrorMapper::toBusiness)
                 .then();
+    }
+
+    @Override
+    public Flux<Usuario> findByEmails(List<String> emails) {
+        return repository.findByEmailIn(emails)
+                .map(e -> mapper.map(e, Usuario.class));
     }
 }

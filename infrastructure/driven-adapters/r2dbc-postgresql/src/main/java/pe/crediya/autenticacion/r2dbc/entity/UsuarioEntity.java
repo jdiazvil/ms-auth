@@ -28,6 +28,9 @@ public class UsuarioEntity {
     @Column("email")
     private String email;
 
+    @Column("contrasena")
+    private String contrasena;
+
     @Column("documento_identidad")
     private String documentoIdentidad;
 
