@@ -92,11 +92,14 @@ public class UsuarioUseCase {
     }
 
     private Mono<Usuario> validarContrasena(Usuario usuario, String contrasena) {
-        if (passwordHasher.compareContrasena(contrasena, usuario.getContrasena())) {
-            return Mono.just(usuario);
-        } else {
-            return Mono.error(new BusinessException(ErrorCode.VALIDATION_ERROR, "Credenciales incorrectas"));
-        }
+        return Mono.fromCallable(() -> passwordHasher.compareContrasena(contrasena, usuario.getContrasena()))
+                .flatMap(isValid -> {
+                    if (isValid) {
+                        return Mono.just(usuario);
+                    } else {
+                        return Mono.error(new BusinessException(ErrorCode.VALIDATION_ERROR, "Credenciales incorrectas"));
+                    }
+                });
     }
 
     public Flux<Usuario> obtenerPorEmails(List<String> emails) {

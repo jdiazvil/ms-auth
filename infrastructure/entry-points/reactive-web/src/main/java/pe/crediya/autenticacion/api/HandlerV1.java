@@ -98,6 +98,7 @@ public class HandlerV1 {
                         .bodyValue(list));
     }
 
+    /*
     @PreAuthorize("hasRole('permissionGET')")
     public Mono<ServerResponse> listenGETUseCase(ServerRequest serverRequest) {
         // useCase.logic();
@@ -115,6 +116,7 @@ public class HandlerV1 {
         // useCase.logic();
         return ServerResponse.ok().bodyValue("");
     }
+    */
 
     public record LoginRequest(
             String email,

@@ -10,6 +10,7 @@ import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.web.reactive.server.WebTestClient;
 import pe.crediya.autenticacion.api.config.TestConfig;
 import pe.crediya.autenticacion.model.usuario.Usuario;
+import pe.crediya.autenticacion.usecase.rol.RolUseCase;
 import pe.crediya.autenticacion.usecase.usuario.UsuarioUseCase;
 import reactor.core.publisher.Mono;
 
@@ -29,6 +30,9 @@ class RouterRestTest {
     @Autowired
     private UsuarioUseCase usuarioUseCase;
 
+    @Autowired
+    private RolUseCase rolUseCase;
+
     @BeforeEach
     void setUp() {
         MockitoAnnotations.openMocks(this);
@@ -36,7 +40,7 @@ class RouterRestTest {
 
     @Test
     void testCrearUsuario() {
-        Usuario usuarioCreado = new Usuario(1L, "Joseph Alfredo", "Diaz Vilchez", "jdiazvil@gmail.com",
+        Usuario usuarioCreado = new Usuario(1L, "Joseph Alfredo", "Diaz Vilchez", "jdiazvil@gmail.com",null,
                 "47042138", LocalDate.parse("2025-08-25"), "Calle S/N", "921018564", BigDecimal.valueOf(1000), 1L);
 
         when(usuarioUseCase.crear(any(Usuario.class)))

@@ -1,14 +1,17 @@
+name: autenticacion
+
 services:
+  # Servicio de base de datos Postgres para ms-auth
   postgres:
     image: postgres:16-alpine
-    container_name: crediya-postgres
+    container_name: crediya-postgres-auth
     env_file:
       - .env
     ports:
       - "5432:5432"
     volumes:
-      - pgdata:/var/lib/postgresql/data
-      - ./sql:/docker-entrypoint-initdb.d  # ejecuta *.sql al primer arranque
+      - pgdata-auth:/var/lib/postgresql/data
+      - ./sql:/docker-entrypoint-initdb.d
     healthcheck:
       test: ["CMD-SHELL", "pg_isready -U ${POSTGRES_USER} -d ${POSTGRES_DB}"]
       interval: 5s
@@ -17,22 +20,29 @@ services:
     networks:
       - crediya-net
 
-  pgadmin:
-    image: dpage/pgadmin4:latest  # opcional; puedes usar DBeaver si prefieres
-    container_name: crediya-pgadmin
-    environment:
-      PGADMIN_DEFAULT_EMAIL: ${PGADMIN_DEFAULT_EMAIL}
-      PGADMIN_DEFAULT_PASSWORD: ${PGADMIN_DEFAULT_PASSWORD}
+  # Servicio de ms-auth (autenticación)
+  ms-auth:
+    build:
+      context: ../
+      dockerfile: deployment/Dockerfile
+    container_name: ms-auth
     ports:
-      - "8081:80"
+      - "8080:8080"  # Puerto para ms-auth
+    environment:
+      - SPRING_PROFILES_ACTIVE=local
+      - DB_HOST=crediya-postgres-auth
+      - DB_URL=jdbc:postgresql://crediya-postgres-auth:5432/${POSTGRES_DB}
+      - DB_USER=${POSTGRES_USER}
+      - DB_PASSWORD=${POSTGRES_PASSWORD}
     depends_on:
-      postgres:
-        condition: service_healthy
+      - postgres
     networks:
       - crediya-net
 
 volumes:
-  pgdata:
+  pgdata-auth:
 
 networks:
   crediya-net:
+    external: true
+    driver: bridge

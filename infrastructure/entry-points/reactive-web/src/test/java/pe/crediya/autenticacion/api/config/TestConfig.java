@@ -11,6 +11,8 @@ import org.springframework.security.config.web.server.ServerHttpSecurity;
 import org.springframework.security.web.server.SecurityWebFilterChain;
 import org.springframework.transaction.ReactiveTransactionManager;
 import org.springframework.transaction.reactive.TransactionalOperator;
+import pe.crediya.autenticacion.model.usuario.gateways.TokenIssuer;
+import pe.crediya.autenticacion.usecase.rol.RolUseCase;
 import pe.crediya.autenticacion.usecase.usuario.UsuarioUseCase;
 
 import static org.mockito.Mockito.mock;
@@ -47,6 +49,15 @@ public class TestConfig {
         return mock(UsuarioUseCase.class);
     }
 
+    @Bean
+    public RolUseCase rolUseCase(){
+        return mock(RolUseCase.class);
+    }
+
+    @Bean
+    public TokenIssuer tokenIssuer(){
+        return mock(TokenIssuer.class);
+    }
 
     /**
      * Desactiva Spring Security para los tests de WebFlux,

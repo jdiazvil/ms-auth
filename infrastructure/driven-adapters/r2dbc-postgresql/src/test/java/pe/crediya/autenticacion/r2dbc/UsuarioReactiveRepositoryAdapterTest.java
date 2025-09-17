@@ -34,13 +34,13 @@ class UsuarioReactiveRepositoryAdapterTest {
     @Test
     void mustFindValueById() {
 
-        UsuarioEntity usuarioEntity = new UsuarioEntity(1L, "Joseph Alfredo", "Diaz Vilchez", "jdiazvil@gmail.com",
+        UsuarioEntity usuarioEntity = new UsuarioEntity(1L, "Joseph Alfredo", "Diaz Vilchez", "jdiazvil@gmail.com",null,
                 "47042138", LocalDate.parse("2025-08-25"), "Calle S/N", "921018564",
                 BigDecimal.valueOf(1000), 1L);
 
         when(repository.findById(1L)).thenReturn(Mono.just(usuarioEntity));
         when(mapper.map(usuarioEntity, Usuario.class)).thenReturn(
-                new Usuario(1L, "Joseph Alfredo", "Diaz Vilchez", "jdiazvil@gmail.com",
+                new Usuario(1L, "Joseph Alfredo", "Diaz Vilchez", "jdiazvil@gmail.com",null,
                         "47042138", LocalDate.parse("2025-08-25"), "Calle S/N", "921018564", BigDecimal.valueOf(1000), 1L)
         );
 
@@ -56,14 +56,14 @@ class UsuarioReactiveRepositoryAdapterTest {
     @Test
     void mustFindAllValues() {
 
-        UsuarioEntity usuarioEntity = new UsuarioEntity(1L, "Joseph Alfredo", "Diaz Vilchez", "jdiazvil@gmail.com",
+        UsuarioEntity usuarioEntity = new UsuarioEntity(1L, "Joseph Alfredo", "Diaz Vilchez", "jdiazvil@gmail.com",null,
                 "47042138", LocalDate.parse("2025-08-25"), "Calle S/N", "921018564",
                 BigDecimal.valueOf(1000), 1L);
 
 
         when(repository.findAll()).thenReturn(Flux.just(usuarioEntity));
         when(mapper.map(usuarioEntity, Usuario.class)).thenReturn(
-                new Usuario(1L, "Joseph Alfredo", "Diaz Vilchez", "jdiazvil@gmail.com",
+                new Usuario(1L, "Joseph Alfredo", "Diaz Vilchez", "jdiazvil@gmail.com",null,
                         "47042138", LocalDate.parse("2025-08-25"), "Calle S/N", "921018564", BigDecimal.valueOf(1000), 1L)
         );
 
@@ -79,11 +79,11 @@ class UsuarioReactiveRepositoryAdapterTest {
     @Test
     void mustFindByExample() {
 
-        UsuarioEntity usuarioEntity = new UsuarioEntity(1L, "Joseph Alfredo", "Diaz Vilchez", "jdiazvil@gmail.com",
+        UsuarioEntity usuarioEntity = new UsuarioEntity(1L, "Joseph Alfredo", "Diaz Vilchez", "jdiazvil@gmail.com",null,
                 "47042138", LocalDate.parse("2025-08-25"), "Calle S/N", "921018564",
                 BigDecimal.valueOf(1000), 1L);
 
-        Usuario usuario = new Usuario(1L, "Joseph Alfredo", "Diaz Vilchez", "jdiazvil@gmail.com",
+        Usuario usuario = new Usuario(1L, "Joseph Alfredo", "Diaz Vilchez", "jdiazvil@gmail.com",null,
                 "47042138", LocalDate.parse("2025-08-25"), "Calle S/N", "921018564", BigDecimal.valueOf(1000), 1L);
 
         Example<UsuarioEntity> example = Example.of(usuarioEntity);
@@ -101,13 +101,13 @@ class UsuarioReactiveRepositoryAdapterTest {
     @Test
     void mustSaveValue() {
 
-        UsuarioEntity usuarioEntity = new UsuarioEntity(1L, "Joseph Alfredo", "Diaz Vilchez", "jdiazvil@gmail.com",
+        UsuarioEntity usuarioEntity = new UsuarioEntity(1L, "Joseph Alfredo", "Diaz Vilchez", "jdiazvil@gmail.com",null,
                 "47042138", LocalDate.parse("2025-08-25"), "Calle S/N", "921018564",
                 BigDecimal.valueOf(1000), 1L);
 
         when(repository.save(usuarioEntity)).thenReturn(Mono.just(usuarioEntity));
 
-        Usuario usuario = new Usuario(1L, "Joseph Alfredo", "Diaz Vilchez", "jdiazvil@gmail.com",
+        Usuario usuario = new Usuario(1L, "Joseph Alfredo", "Diaz Vilchez", "jdiazvil@gmail.com",null,
                 "47042138", LocalDate.parse("2025-08-25"), "Calle S/N", "921018564", BigDecimal.valueOf(1000), 1L);
         when(mapper.map(usuarioEntity, Usuario.class)).thenReturn(usuario);
         when(mapper.map(usuario, UsuarioEntity.class)).thenReturn(usuarioEntity);
@@ -123,12 +123,12 @@ class UsuarioReactiveRepositoryAdapterTest {
 
     @Test
     void mustFindByEmail() {
-        UsuarioEntity usuarioEntity = new UsuarioEntity(1L, "Joseph Alfredo", "Diaz Vilchez", "jdiazvil@gmail.com",
+        UsuarioEntity usuarioEntity = new UsuarioEntity(1L, "Joseph Alfredo", "Diaz Vilchez", "jdiazvil@gmail.com",null,
                 "47042138", LocalDate.parse("2025-08-25"), "Calle S/N", "921018564", BigDecimal.valueOf(1000), 1L);
 
         when(repository.findByEmail("jdiazvil@gmail.com")).thenReturn(Mono.just(usuarioEntity));
 
-        Usuario usuario = new Usuario(1L, "Joseph Alfredo", "Diaz Vilchez", "jdiazvil@gmail.com",
+        Usuario usuario = new Usuario(1L, "Joseph Alfredo", "Diaz Vilchez", "jdiazvil@gmail.com",null,
                 "47042138", LocalDate.parse("2025-08-25"), "Calle S/N", "921018564", BigDecimal.valueOf(1000), 1L);
         when(mapper.map(usuarioEntity, Usuario.class)).thenReturn(usuario);
 

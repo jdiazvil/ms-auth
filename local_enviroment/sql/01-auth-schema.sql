@@ -36,6 +36,11 @@ INSERT INTO rol (nombre, descripcion) VALUES
 ON CONFLICT (nombre) DO UPDATE
 SET descripcion = EXCLUDED.descripcion;
 
+insert into usuario values
+(1,'Joseph Alfredo','jdiazvil@gmail.com',
+'$2a$10$xfzESLbslXe8nUyRvYikSOYptpZrGS66Z/7v0P0mHipPCMZbwYRRC',
+'47042138','1991-04-09','Calle S/N','921018564','1000',1);
+
 --INSERT INTO usuario (nombre, apellido, email, contrasena, salario_base, id_rol)
 --SELECT 'Admin', 'Root', 'admin@crediya.pe',
 --'$2a$10$REEMPLAZA_ESTE_HASH_BCRYPT...', 0,

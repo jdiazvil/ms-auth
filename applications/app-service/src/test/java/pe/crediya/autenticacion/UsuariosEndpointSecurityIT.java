@@ -63,7 +63,7 @@ public class UsuariosEndpointSecurityIT {
     @Test
     @DisplayName("JWT con rol ADMIN → 201")
     void postUsuarios_jwtAdmin_201() {
-        Usuario creado = new Usuario(1L, "Ana", "Paz", "ana@demo.com",
+        Usuario creado = new Usuario(1L, "Ana", "Paz", "ana@demo.com",null,
                 null,null,null,null, BigDecimal.valueOf(1200), null);
 
         given(usuarioUseCase.crear(any())).willReturn(Mono.just(creado));
