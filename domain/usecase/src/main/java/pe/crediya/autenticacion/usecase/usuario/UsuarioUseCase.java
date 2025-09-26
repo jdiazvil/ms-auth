@@ -46,7 +46,8 @@ public class UsuarioUseCase {
 
     public Mono<Usuario> obtenerPorEmail(String email) {
         if (!isEmail(email)) return Mono.error(new BusinessException(ErrorCode.VALIDATION_ERROR,"Correo electrónico no valido"));
-        return usuarioRepository.findByEmail(email);
+        return usuarioRepository.findByEmail(email)
+                .switchIfEmpty(Mono.error(new BusinessException(ErrorCode.VALIDATION_ERROR, "Usuario no encontrado")));
     }
 
     public Flux<Usuario> listar() {

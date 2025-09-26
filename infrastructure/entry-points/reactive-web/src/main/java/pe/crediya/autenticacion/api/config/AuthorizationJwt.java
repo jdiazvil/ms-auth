@@ -77,6 +77,7 @@ public class AuthorizationJwt implements WebFluxConfigurer {
                     .pathMatchers(HttpMethod.POST,"/api/v1/login").permitAll()
                     .pathMatchers(HttpMethod.POST,"/api/v1/usuarios/bulk").permitAll()
                     .pathMatchers(HttpMethod.POST,"/api/v1/usuarios").hasRole("ADMIN")
+                    .pathMatchers(HttpMethod.GET,"/api/v1/usuario/**").permitAll()
                     //.pathMatchers(HttpMethod.POST,"/api/v1/usuarios").permitAll()
                     .anyExchange().authenticated())
             //.authorizeExchange(authorize -> authorize.anyExchange().authenticated())

@@ -98,6 +98,15 @@ public class HandlerV1 {
                         .bodyValue(list));
     }
 
+    public Mono<ServerResponse> obtenerUsuarioPorEmail(ServerRequest request){
+        String email = request.pathVariable("email");
+        return usuarioUseCase.obtenerPorEmail(email)
+                .flatMap(usuario -> ServerResponse.ok()
+                        .contentType(APPLICATION_JSON)
+                        .bodyValue(usuario)
+                );
+    }
+
     /*
     @PreAuthorize("hasRole('permissionGET')")
     public Mono<ServerResponse> listenGETUseCase(ServerRequest serverRequest) {

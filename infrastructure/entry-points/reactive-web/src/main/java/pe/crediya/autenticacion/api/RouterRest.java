@@ -1,6 +1,7 @@
 package pe.crediya.autenticacion.api;
 
 import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.Parameter;
 import io.swagger.v3.oas.annotations.media.ArraySchema;
 import io.swagger.v3.oas.annotations.media.Content;
 import io.swagger.v3.oas.annotations.media.Schema;
@@ -101,6 +102,28 @@ public class RouterRest {
                                     @ApiResponse(responseCode = "404", description = "No se encontraron usuarios")
                             }
                     )
+            ),
+            @RouterOperation(
+                    path = "/api/v1/obtener-usuario/{email}",
+                    method = RequestMethod.GET,
+                    beanClass = HandlerV1.class,
+                    beanMethod = "obtenerUsuarioPorEmail",
+                    operation = @Operation(
+                            operationId = "obtenerUsuarioPorEmail",
+                            summary = "Obtener un usuario por email",
+                            description = "Recupera los detalles de un usuario utilizando su correo electrónico.",
+                            parameters = @Parameter(
+                                    name = "email",
+                                    description = "Correo electrónico del usuario",
+                                    required = true,
+                                    schema = @Schema(type = "string")
+                            ),
+                            responses = {
+                                    @ApiResponse(responseCode = "200", description = "Usuario encontrado",
+                                            content = @Content(schema = @Schema(implementation = Usuario.class))),
+                                    @ApiResponse(responseCode = "404", description = "Usuario no encontrado")
+                            }
+                    )
             )
     })
     public RouterFunction<ServerResponse> routerFunction(HandlerV1 handlerV1, HandlerV2 handlerV2) {
@@ -109,6 +132,8 @@ public class RouterRest {
                     .POST("/login",accept(APPLICATION_JSON),handlerV1::login)
                     .POST("/usuarios", accept(APPLICATION_JSON),handlerV1::crearUsuario)
                     .POST("/usuarios/bulk",accept(APPLICATION_JSON),handlerV1::obtenerUsuariosBulk)
+                    .GET("/usuario/{email}", handlerV1::obtenerUsuarioPorEmail)
+
             )
             /*
             .path("/api/v2", builder -> builder

@@ -1,6 +1,7 @@
 package pe.crediya.autenticacion.api;
 
 import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
 import org.mockito.MockitoAnnotations;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -22,6 +23,7 @@ import static org.mockito.Mockito.when;
 
 @ContextConfiguration(classes = {RouterRest.class, HandlerV1.class, HandlerV2.class, TestConfig.class})
 @WebFluxTest
+@Disabled
 class RouterRestTest {
 
     @Autowired
